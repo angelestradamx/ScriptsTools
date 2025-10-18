@@ -1,0 +1,30 @@
+# Archivos de entorno
+.env
+
+# Archivos de log
+*.log
+
+# Archivos de salida de compilación
+/build/
+dist/
+
+# Archivos temporales
+*.tmp
+
+# Archivos de la base de datos
+*.sqlite
+*.db
+
+# Archivos de configuración de IDE
+.vscode/
+*.pyc
+__pycache__/
+
+# Scripts generados
+*.sql
+*.sh
+*.ps1
+
+# Archivos de paquetes de Python
+*.egg-info/
+*.egg
