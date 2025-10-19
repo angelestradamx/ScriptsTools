@@ -1,47 +1,47 @@
-# ?? Analizador de Access Log (Nginx / Apache)
+﻿# 🧩 Analizador de Access Log (Nginx / Apache)
 
-Analizador avanzado de archivos **access.log** con estadisticas completas, comparacion entre trafico **Cloudflare** y **Directo**, e integracion con exportacion a **Excel** o **CSV**.  
-Ideal para analizar el rendimiento de APIs, servidores web o proxies Nginx en produccion.
+Analizador avanzado de archivos **access.log** con estadísticas completas, comparación entre tráfico **Cloudflare** y **Directo**, e integración con exportación a **Excel** o **CSV**.  
+Ideal para analizar el rendimiento de APIs, servidores web o proxies Nginx en producción.
 
 ---
 
-## ?? Indice
+## 📚 Índice
 
-- [Descripcion](#descripcion)
-- [Caracteristicas principales](#caracteristicas-principales)
+- [Descripción](#descripción)
+- [Características principales](#características-principales)
 - [Requisitos](#requisitos)
-- [Configuracion requerida en Nginx](#configuracion-requerida-en-nginx)
-- [Uso basico](#uso-basico)
+- [Configuración requerida en Nginx](#configuración-requerida-en-nginx)
+- [Uso básico](#uso-básico)
 - [Ejemplos de uso](#ejemplos-de-uso)
 - [Ejemplo de salida](#ejemplo-de-salida)
 - [Estructura del proyecto](#estructura-del-proyecto)
 - [Exportaciones](#exportaciones)
-- [Linter automatico](#linter-automatico)
-- [Autor y version](#autor-y-version)
+- [Linter automático](#linter-automático)
+- [Autor y versión](#autor-y-versión)
 
 ---
 
-## ?? Descripcion
+## 📘 Descripción
 
-El script `web.analyze.access_log.py` analiza archivos **access.log** (Nginx o Apache) y genera un reporte detallado con metricas de rendimiento, errores, tiempos de respuesta y comparativas de trafico.  
-Permite exportar la informacion a Excel o CSV con diferentes hojas tematicas (general, por codigo, por hora, etc.).
-
----
-
-## ?? Caracteristicas principales
-
-- ?? **Estadisticas por codigo HTTP** (200, 400, 499, 500, etc.)
-- ?? **Analisis por hora** (requests lentos, errores, distribucion)
-- ?? **Comparativa Cloudflare vs Directos**
-- ?? **Deteccion de endpoints problematicos**
-- ?? **Exportacion directa a Excel o CSV**
-- ?? **Umbral dinamico de lentitud (`--threshold`)**
-- ?? **Sugerencia automatica de umbral** segun percentiles
-- ?? **Soporte multi-entorno** (funciona en Linux, Windows y macOS)
+El script `web.analyze.access_log.py` analiza archivos **access.log** (Nginx o Apache) y genera un reporte detallado con métricas de rendimiento, errores, tiempos de respuesta y comparativas de tráfico.  
+Permite exportar la información a Excel o CSV con diferentes hojas temáticas (general, por código, por hora, etc.).
 
 ---
 
-## ?? Requisitos
+## 🚀 Características principales
+
+- 📊 **Estadísticas por código HTTP** (200, 400, 499, 500, etc.)
+- 🕐 **Análisis por hora** (requests lentos, errores, distribución)
+- ☁️ **Comparativa Cloudflare vs Directos**
+- 🧭 **Detección de endpoints problemáticos**
+- 📈 **Exportación directa a Excel o CSV**
+- ⚙️ **Umbral dinámico de lentitud (`--threshold`)**
+- 💡 **Sugerencia automática de umbral** según percentiles
+- 🧩 **Soporte multi-entorno** (funciona en Linux, Windows y macOS)
+
+---
+
+## 🧰 Requisitos
 
 Instala las dependencias necesarias antes de ejecutar el script:
 
@@ -59,11 +59,11 @@ requests==2.32.5
 
 ---
 
-## ?? Configuracion requerida en Nginx
+## ⚙️ Configuración requerida en Nginx
 
 Para que el analizador funcione correctamente, es **necesario configurar un formato de log personalizado** en tu `nginx.conf` (o en el archivo del sitio) que incluya los campos usados por el script: `status`, `rt`, `urt`, `cf-ray`, `realip`, `request`, `ua`, etc.
 
-Agrega o modifica la seccion del log asi:
+Agrega o modifica la sección del log así:
 
 ```nginx
 http {
@@ -84,7 +84,7 @@ http {
 }
 ```
 
-> ?? **Consejo:** Reinicia Nginx despues de aplicar los cambios:
+> 💡 **Consejo:** Reinicia Nginx después de aplicar los cambios:
 >
 > ```bash
 > sudo nginx -t && sudo systemctl reload nginx
@@ -93,12 +93,12 @@ http {
 Este formato genera los campos que el script utiliza para identificar:
 - El tiempo de respuesta (`rt`)
 - El tiempo del upstream (`urt`)
-- El origen del trafico (Cloudflare o directo)
+- El origen del tráfico (Cloudflare o directo)
 - Las cabeceras de usuario y URL completas
 
 ---
 
-## ?? Uso basico
+## ⚙️ Uso básico
 
 Ejecuta el analizador con un archivo de log:
 
@@ -106,9 +106,9 @@ Ejecuta el analizador con un archivo de log:
 python3 web.analyze.access_log.py access.log
 ```
 
-### Parametros disponibles
+### Parámetros disponibles
 
-| Parametro            | Descripcion                                                              |
+| Parámetro            | Descripción                                                              |
 |----------------------|--------------------------------------------------------------------------|
 | `--threshold` o `-t` | Define el umbral de lentitud en segundos (por defecto 1.0s).             |
 | `--export` o `-e`    | Exporta resultados (`excel`, `csv`, `both`).                             |
@@ -116,21 +116,21 @@ python3 web.analyze.access_log.py access.log
 
 ---
 
-## ?? Ejemplos de uso
+## 🧾 Ejemplos de uso
 
-### ?? 1. Analisis estandar
+### 🔹 1. Análisis estándar
 
 ```bash
 python3 web.analyze.access_log.py /var/log/nginx/access.log
 ```
 
-### ?? 2. Analisis con exportacion a Excel
+### 🔹 2. Análisis con exportación a Excel
 
 ```bash
 python3 web.analyze.access_log.py access.log --export excel
 ```
 
-### ?? 3. Analisis con threshold personalizado y exportacion doble
+### 🔹 3. Análisis con threshold personalizado y exportación doble
 
 ```bash
 python3 web.analyze.access_log.py access.log --threshold 2 --export both
@@ -138,56 +138,56 @@ python3 web.analyze.access_log.py access.log --threshold 2 --export both
 
 ---
 
-## ?? Ejemplo de salida
+## 📊 Ejemplo de salida
 
 ```
-?? ESTADISTICAS GENERALES COMPLETAS
-?? Total de requests: 465,396
-?? Requests lentos (> 1.0s): 9,980 (2.1%)
-? Errores 499: 1,785 (0.38%)
-?? Requests Cloudflare: 149,770 (43.2%)
-?? Requests Directos: 201,475 (56.8%)
-?? Tiempo promedio total: 0.421s
-?? Percentil 95: 0.812s
-?? Percentil 99: 1.937s
+📈 ESTADÍSTICAS GENERALES COMPLETAS
+📊 Total de requests: 465,396
+🐌 Requests lentos (> 1.0s): 9,980 (2.1%)
+❌ Errores 499: 1,785 (0.38%)
+☁️ Requests Cloudflare: 149,770 (43.2%)
+🔗 Requests Directos: 201,475 (56.8%)
+⏱️ Tiempo promedio total: 0.421s
+📊 Percentil 95: 0.812s
+📊 Percentil 99: 1.937s
 ```
 
 ---
 
-## ?? Estructura del proyecto
+## 📁 Estructura del proyecto
 
 ```plaintext
 ScriptsTools/
-�|�w�w web/
-    �|�w�w analyze.access_log/
-        �u�w�w web.analyze.access_log.py  # Script principal
-        �u�w�w requirements.txt           # Dependencias necesarias
-        �|�w�w README.md                 # Documentacion del proyecto
+└── web/
+    └── analyze.access_log/
+        ├── web.analyze.access_log.py  # Script principal
+        ├── requirements.txt           # Dependencias necesarias
+        └── README.md                 # Documentación del proyecto
 ```
 
 ---
 
-## ?? Exportaciones
+## 📦 Exportaciones
 
-El script puede generar multiples hojas o archivos CSV, segun el tipo de exportacion seleccionada:
+El script puede generar múltiples hojas o archivos CSV, según el tipo de exportación seleccionada:
 
 | Hoja / CSV                 | Contenido                                  |
 |----------------------------|--------------------------------------------|
-| `procesamiento_completado` | Lineas procesadas, rango de fechas         |
+| `procesamiento_completado` | Líneas procesadas, rango de fechas         |
 | `estadisticas_generales`   | Totales, percentiles, promedios            |
-| `distribucion_http`        | Resumen por codigo HTTP                    |
+| `distribucion_http`        | Resumen por código HTTP                    |
 | `cloudflare_vs_directo`    | Comparativa entre Cloudflare y Directo     |
-| `endpoints_por_codigo`     | Principales endpoints por codigo HTTP      |
-| `top_endpoints`            | Top 25 endpoints mas solicitados           |
-| `analisis_horario`         | Distribucion horaria                       |
-| `endpoints_lentos`         | Top endpoints mas lentos                   |
-| `detalle_endpoints`        | Detalle completo con metricas por endpoint |
+| `endpoints_por_codigo`     | Principales endpoints por código HTTP      |
+| `top_endpoints`            | Top 25 endpoints más solicitados           |
+| `analisis_horario`         | Distribución horaria                       |
+| `endpoints_lentos`         | Top endpoints más lentos                   |
+| `detalle_endpoints`        | Detalle completo con métricas por endpoint |
 
 ---
 
-## ?? Linter automatico
+## 🧪 Linter automático
 
-Este proyecto puede validarse automaticamente mediante **GitHub Actions**, para asegurar que todos los scripts cumplan buenas practicas de sintaxis y estilo.
+Este proyecto puede validarse automáticamente mediante **GitHub Actions**, para asegurar que todos los scripts cumplan buenas prácticas de sintaxis y estilo.
 
 ### Archivo del flujo: `.github/workflows/lint.yml`
 
@@ -213,7 +213,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Instalar PSScriptAnalyzer
         run: Install-Module PSScriptAnalyzer -Force -Scope CurrentUser
-      - name: Ejecutar analisis
+      - name: Ejecutar análisis
         run: Invoke-ScriptAnalyzer -Path . -Recurse -Severity Warning -ReportSummary
 
   python:
@@ -227,23 +227,23 @@ jobs:
           python-version: '3.11'
       - name: Instalar Flake8
         run: pip install flake8
-      - name: Revisar codigo Python
+      - name: Revisar código Python
         run: flake8 --max-line-length=120 --exclude=.git,__pycache__,venv
 ```
 
-?? Esto permite que cada vez que hagas **push** o **pull request**, GitHub revise automaticamente:
+💡 Esto permite que cada vez que hagas **push** o **pull request**, GitHub revise automáticamente:
 - Scripts **Bash** (`.sh`) con **ShellCheck**
 - Scripts **PowerShell** (`.ps1`) con **PSScriptAnalyzer**
 - Scripts **Python** (`.py`) con **Flake8**
 
-Si encuentra errores, los muestra en la pestana **Actions** del repositorio.
+Si encuentra errores, los muestra en la pestaña **Actions** del repositorio.
 
 ---
 
-## ?? Autor y version
+## 👤 Autor y versión
 
-**Autor:** Angel Estrada  
-**Version:** 1.0.0  
+**Autor:** Ángel Estrada  
+**Versión:** 1.0.0  
 **Licencia:** MIT  
 **Repositorio:** [https://github.com/angelestradamx/ScriptsTools](https://github.com/angelestradamx/ScriptsTools)  
-**Ultima actualizacion:** Octubre 2025
+**Última actualización:** Octubre 2025
