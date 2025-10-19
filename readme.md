@@ -11,6 +11,7 @@ Este proyecto contiene scripts para la gestión de seguridad, monitoreo, redes, 
 - **virtualizacion/**: Herramientas para virtualización.
 - **utils/**: Utilidades generales.
 
+```bash
 ScriptsTools/
 ├─ security/
 │  ├─ fail2ban/
@@ -49,7 +50,7 @@ ScriptsTools/
 ├─ LICENSE
 ├─ CHANGELOG.md
 └─ README.md
-
+```
 
 
 ## Cómo Empezar
@@ -109,18 +110,14 @@ echo "Resultado: $resultado"
 ## Cómo Empezar
 Copia el archivo `.env.example` a `.env` y ajusta las variables según sea necesario.
 ```
-
 ### Nota
-
 Asegúrate de completar las secciones como **Requisitos** y **Cómo Empezar** de acuerdo a las necesidades específicas de tu proyecto. Ahora, tu `README.md` será un recurso útil para cualquier persona que interactúe con tu código. Si necesitas más asistencia o ajustes, ¡hazmelo saber!
 
-
-
-Quick setup — if you’ve done this kind of thing before
+## Configuración rápida: si has hecho este tipo de cosas antes
 SSH 	git@github.com:angelestradamx/ScriptsTools.git
 HTTPS 	https://github.com/angelestradamx/ScriptsTools.git
 
-…or create a new repository on the command line
+## … o crear un nuevo repositorio en la línea de comandos
 echo "# ScriptsTools" >> README.md
 git init
 git add README.md
@@ -129,7 +126,7 @@ git branch -M main
 git remote add origin https://github.com/angelestradamx/ScriptsTools.git
 git push -u origin main
 
-…or push an existing repository from the command line
+## … o inserte un repositorio existente desde la línea de comandos
 git remote add origin https://github.com/angelestradamx/ScriptsTools.git
 git branch -M main
 git push -u origin main
