@@ -1,0 +1,37 @@
+name: Lint Scripts
+on: [push, pull_request]
+
+jobs:
+  bash:
+    name: Validar scripts Bash
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ejecutar ShellCheck
+        uses: ludeeus/action-shellcheck@v2
+        with:
+          scandir: './'
+
+  powershell:
+    name: Analizar PowerShell
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar PSScriptAnalyzer
+        run: Install-Module PSScriptAnalyzer -Force -Scope CurrentUser
+      - name: Ejecutar análisis
+        run: Invoke-ScriptAnalyzer -Path . -Recurse -Severity Warning -ReportSummary
+
+  python:
+    name: Linter Python (Flake8)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Instalar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Instalar Flake8
+        run: pip install flake8
+      - name: Revisar código Python
+        run: flake8 --max-line-length=120 --exclude=.git,__pycache__,venv

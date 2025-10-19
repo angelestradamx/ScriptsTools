@@ -1,42 +1,64 @@
-# Scripts de Administración de Sistemas
+# 🧱 **1️⃣ README principal — `ScriptsTools/README.md`**
 
-Este proyecto contiene scripts para la gestión de seguridad, monitoreo, redes, bases de datos y virtualización.
+```markdown
+# 🧰 ScriptsTools — Colección de utilidades para administración de sistemas
 
-## Estructura del Proyecto
-- **seguridad/**: Scripts relacionados con la seguridad del sistema.
-- **monitoreo/**: Scripts para monitorear sistemas.
-- **redes/**: Herramientas y scripts para la gestión de redes.
-- **web/**: Scripts para configuración de servidores web.
-- **basesdedatos/**: Scripts para manejar bases de datos.
-- **virtualizacion/**: Herramientas para virtualización.
-- **utils/**: Utilidades generales.
+Repositorio central con **scripts desarrollados para automatizar tareas de infraestructura**, mejorar la **seguridad**, optimizar **rendimiento** y simplificar la **gestión de servidores Linux, Windows y entornos virtualizados**.
+
+Incluye herramientas para:
+- 🔒 Seguridad y firewall
+- 🌐 Configuración web y Nginx
+- 🩺 Monitoreo de rendimiento
+- 💾 Bases de datos SQL Server / PostgreSQL
+- ⚙️ Redes y diagnóstico
+- 🖥️ Virtualización (Proxmox, Docker)
+- 🧩 Utilidades generales (bash, PowerShell)
+
+---
+
+## 📚 Índice de categorías
+
+| Categoría | Descripción | Ruta |
+|------------|-------------|------|
+| 🔒 **Seguridad** | Scripts de iptables, fail2ban, Cloudflare y bloqueo de IPs | [seguridad/](seguridad) |
+| 🩺 **Monitoreo** | Scripts de diagnóstico y métricas de rendimiento | [monitoreo/](monitoreo) |
+| 🌐 **Web** | Configuración y análisis de servidores Nginx/Apache | [web/](web) |
+| 💾 **Bases de Datos** | Scripts SQL, monitoreo y optimización de índices | [basesdedatos/](basesdedatos) |
+| ⚙️ **Redes** | VLAN, diagnóstico, tráfico y control de conexiones | [redes/](redes) |
+| 🖥️ **Virtualización** | Proxmox, Docker y gestión de entornos virtuales | [virtualizacion/](virtualizacion) |
+| 🧩 **Utils** | Scripts generales en bash y PowerShell | [utils/](utils) |
+
+---
+
+## 🧱 Estructura general del repositorio
+
+```
 
 ScriptsTools/
-├─ security/
+├─ seguridad/
 │  ├─ fail2ban/
-│  │  ├─ jails/
-│  │  └─ filters/
 │  ├─ iptables/
 │  └─ cloudflare/
 │     └─ README.md
-├─ monitoring/
+├─ monitoreo/
 │  ├─ linux/
 │  ├─ windows/
 │  └─ sqlserver/
 │     └─ README.md
-├─ networks/
+├─ redes/
 │  ├─ vlan/
 │  └─ diagnostics/
 │     └─ README.md
 ├─ web/
 │  ├─ nginx/
-│  └─ certificates/
+│  ├─ certificates/
+│  └─ analyze.access_log/
 │     └─ README.md
-├─ databases/
+├─ basesdedatos/
 │  ├─ sqlserver/
 │  └─ postgres/
 │     └─ README.md
-├─ virtualization/
+├─ virtualizacion/
 │  ├─ proxmox/
 │  └─ docker/
 │     └─ README.md
@@ -44,92 +66,139 @@ ScriptsTools/
 │  ├─ bash/
 │  └─ powershell/
 │     └─ README.md
+├─ .github/workflows/lint.yml
 ├─ .env.example
 ├─ .gitignore
 ├─ LICENSE
-├─ CHANGELOG.md
-└─ README.md
+└─ README.md   ← este archivo
 
-
-
-## Cómo Empezar
-Copia el archivo `.env.example` a `.env` y ajusta las variables según sea necesario.
-
-## Convenciones
-
-- **Nombres de archivo**: `<os|app>.<accion>.<target>.<ext>`
-- **Ejemplos**:
-  - `linux.backup.minio.sh`
-  - `windows.iis.reset.ps1`
-  - `sqlserver.check.top_queries.sql`
-
-## Aspectos Importantes de los Scripts de Shell
-
-### Shebang
-
-El **shebang** es la primera línea de un script de shell que indica al sistema operativo qué intérprete usar para ejecutar el script. La sintaxis común es:
-
-```bash
-#!/usr/bin/env bash
 ```
 
-#### Detalles
-- **`#!`**: Indica que lo que sigue es el camino al intérprete.
-- **`/usr/bin/env`**: Este comando se utiliza para encontrar el ejecutable `bash` en el `PATH`, lo que permite que el script se ejecute con la versión de `bash` que el usuario tenga configurada, en lugar de una ruta específica que podría no existir en todos los sistemas.
+---
 
-### Modo Estricto
+## ⚙️ Convenciones de nombres
 
-**Definición**: El **modo estricto** es una forma de hacer que un script sea más robusto y menos propenso a errores. Se activa con la línea:
+Los scripts siguen una convención clara para identificar el entorno, la acción y el objetivo:
+
+```
+
+<entorno>.<accion>.<target>.<extensión>
+
+```
+
+Ejemplos:
+```
+
+linux.backup.minio.sh
+windows.iis.reset.ps1
+sqlserver.check.top_queries.sql
+
+````
+
+---
+
+## 🧩 Buenas prácticas para scripts de Shell
+
+### 1️⃣ Shebang
+La primera línea define el intérprete:
+```bash
+#!/usr/bin/env bash
+````
+
+Esto garantiza compatibilidad en cualquier sistema con `bash` en el PATH.
+
+---
+
+### 2️⃣ Modo estricto
+
+Activa comprobaciones para evitar errores silenciosos:
 
 ```bash
 set -euo pipefail
 ```
 
-#### Desglose de las Opciones
-- **`set -e`**: Hace que el script termine inmediatamente si un comando falla (devuelve un código de error distinto de cero).
-- **`set -u`**: Hace que termine el script si se hace referencia a una variable no definida.
-- **`set -o pipefail`**: Cambia el comportamiento de las tuberías (pipes) para que devuelvan el código de salida de la última parte que falló. Sin esto, si un comando en una tubería falla, pero el siguiente comando tiene éxito, la tubería devolverá un código de éxito.
+| Opción        | Significado                                                  |
+| ------------- | ------------------------------------------------------------ |
+| `-e`          | Detiene la ejecución si un comando falla.                    |
+| `-u`          | Falla si se usa una variable no declarada.                   |
+| `-o pipefail` | Propaga el error de cualquier comando dentro de una tubería. |
 
-#### Ejemplo de Uso
+---
+
+### 3️⃣ Ejemplo completo
 
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "Iniciando el script..."
-# Acciones que podrían fallar
-resultado=$(comando_que_puede_fallar) 
+echo "Iniciando backup..."
+resultado=$(rsync -av /origen /destino)
 echo "Resultado: $resultado"
 ```
 
-## Requisitos
-- bash
-- herramientas específicas según el script
+---
 
-## Cómo Empezar
-Copia el archivo `.env.example` a `.env` y ajusta las variables según sea necesario.
+## 🧰 Requisitos generales
+
+* Bash 5.0+
+* Python 3.10+
+* PowerShell 7+
+* Acceso a red y permisos de ejecución en el entorno
+
+---
+
+## 🧪 Linter automático (GitHub Actions)
+
+El repositorio incluye un flujo de trabajo para **validar automáticamente** todos los scripts con herramientas de análisis estático.
+
+Archivo: `.github/workflows/lint.yml`
+
+```yaml
+name: Lint Scripts
+on: [push, pull_request]
+
+jobs:
+  bash:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@v2
+        with:
+          scandir: './'
+
+  powershell:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PSScriptAnalyzer
+        run: Install-Module PSScriptAnalyzer -Force -Scope CurrentUser
+      - name: Analyze PowerShell
+        run: Invoke-ScriptAnalyzer -Path . -Recurse -Severity Warning -ReportSummary
+
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Flake8
+        run: pip install flake8
+      - name: Lint Python
+        run: flake8 --max-line-length=120 --exclude=.git,__pycache__,venv
 ```
 
-### Nota
+💡 *Cada vez que haces un push o PR, GitHub revisa automáticamente la calidad del código.*
 
-Asegúrate de completar las secciones como **Requisitos** y **Cómo Empezar** de acuerdo a las necesidades específicas de tu proyecto. Ahora, tu `README.md` será un recurso útil para cualquier persona que interactúe con tu código. Si necesitas más asistencia o ajustes, ¡hazmelo saber!
+---
 
+## 👤 Autor y mantenimiento
 
+**Autor:** Ángel Estrada
+**Licencia:** MIT
+**Repositorio:** [https://github.com/angelestradamx/ScriptsTools](https://github.com/angelestradamx/ScriptsTools)
+**Última actualización:** Octubre 2025
 
-Quick setup — if you’ve done this kind of thing before
-SSH 	git@github.com:angelestradamx/ScriptsTools.git
-HTTPS 	https://github.com/angelestradamx/ScriptsTools.git
-
-…or create a new repository on the command line
-echo "# ScriptsTools" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/angelestradamx/ScriptsTools.git
-git push -u origin main
-
-…or push an existing repository from the command line
-git remote add origin https://github.com/angelestradamx/ScriptsTools.git
-git branch -M main
-git push -u origin main
+````
